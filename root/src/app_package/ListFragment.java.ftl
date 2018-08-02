@@ -33,7 +33,7 @@ public class ${className} extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.${fragment_layout_list}, container, false);
         mAdapter = new ${adapterClassName}();
-        mRecyclerView = view.findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -57,7 +57,7 @@ public class ${className} extends Fragment {
                 }
             }
         });
-        mSwipeRefreshLayout = view.findViewById(R.id.refreshLayout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
