@@ -2,7 +2,7 @@ package ${packageName}.bean;
 public class ${beanClassName} {
     private String title;
 
-    public TestBean(String title) {
+    public ${beanClassName}(String title) {
         this.title = title;
     }
 

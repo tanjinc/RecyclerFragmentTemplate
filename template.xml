@@ -42,7 +42,7 @@
         suggest="${extractLetters(objectKind)}Bean"
         name="bean class name" />
 
-    <parameter
+    <!-- <parameter
         id="columnCount"
         name="Column Count"
         type="enum"
@@ -52,7 +52,7 @@
         <option id="2">2 (Grid)</option>
         <option id="3">3</option>
         <option id="4">4</option>
-    </parameter>
+    </parameter> -->
 
     <parameter
         id="fragment_layout"
