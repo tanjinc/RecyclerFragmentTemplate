@@ -58,7 +58,7 @@
         id="fragment_layout"
         type="string"
         constraints="layout|nonempty|unique"
-        default="fragment_item"
+        default="fragment_${extractLetters(objectKind)}_item"
         suggest="fragment_${extractLetters(objectKind?lower_case)}"
         name="Object content layout file name" />
 

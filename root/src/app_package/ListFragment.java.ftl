@@ -79,12 +79,12 @@ public class ${className} extends Fragment {
     private void loadMore() {
         ArrayList<${beanClassName}> beanArrayList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            beanArrayList.add(new ${beanClassName}("more " + i));
+            beanArrayList.add(new ${beanClassName}("more " + mAdapter.getItemCount()+i));
         }
         mAdapter.addFootItems(beanArrayList);
     }
 
-    public void refresh() {
+    private void refresh() {
         ArrayList<${beanClassName}> beanArrayList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             beanArrayList.add(new ${beanClassName}("refresh: " + i));

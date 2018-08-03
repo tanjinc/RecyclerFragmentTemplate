@@ -19,6 +19,6 @@
 
     <open file="${escapeXmlAttribute(srcOut)}/${className}.${ktOrJavaExt}" />
 
-    <merge from="root/res/values/dimens.xml"
-             to="${escapeXmlAttribute(resOut)}/values/dimens.xml" />
+    <#--  <merge from="root/res/values/dimens.xml"
+             to="${escapeXmlAttribute(resOut)}/values/dimens.xml" />  -->
 </recipe>
