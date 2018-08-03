@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ${packageName}.bean.${beanClassName}
-
+import ${packageName}.R
 import java.util.*
 
 class ${className} : Fragment() {
@@ -25,7 +25,7 @@ class ${className} : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.${fragment_layout_list}, container, false)
         mAdapter = ${adapterClassName}()
-        mRecyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
+        mRecyclerView = view.findViewById(R.id.recycler_view) as RecyclerView
         mRecyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         mRecyclerView?.adapter = mAdapter
         mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -48,7 +48,7 @@ class ${className} : Fragment() {
                 }
             }
         })
-        mSwipeRefreshLayout = view.findViewById<View>(R.id.refreshLayout) as SwipeRefreshLayout
+        mSwipeRefreshLayout = view.findViewById(R.id.refreshLayout) as SwipeRefreshLayout
         mSwipeRefreshLayout?.setOnRefreshListener { refresh() }
         loadData()
         return view
@@ -65,7 +65,7 @@ class ${className} : Fragment() {
     private fun loadMore() {
         val beanArrayList = ArrayList<${beanClassName}>()
         for (i in 0..9) {
-            beanArrayList.add(${beanClassName}("more $i"))
+            beanArrayList.add(${beanClassName}("more " + (i + mAdapter!!.itemCount)))
         }
         mAdapter?.addFootItems(beanArrayList)
     }

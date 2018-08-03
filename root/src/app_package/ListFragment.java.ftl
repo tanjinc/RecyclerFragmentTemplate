@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ${packageName}.R
 import ${packageName}.bean.${beanClassName};
 
 import java.util.ArrayList;
@@ -81,7 +82,7 @@ public class ${className} extends Fragment {
         for (int i = 0; i < 10; i++) {
             beanArrayList.add(new ${beanClassName}("more " + mAdapter.getItemCount()+i));
         }
-        mAdapter.addFootItems(beanArrayList);
+        mAdapter.addFootItems(beanArrayList);j
     }
 
     private void refresh() {
