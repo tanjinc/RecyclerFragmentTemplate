@@ -2,7 +2,7 @@
 <template
     format="5"
     revision="3"
-    name="Fragment (RecyclerView)"
+    name="Fragment (RecyclerView MVP)"
     description="Creates a new empty fragment containing a list that can be "
     minApi="7"
     minBuildApi="8">
@@ -33,6 +33,14 @@
         default="ItemFragment"
         suggest="${extractLetters(objectKind)}Fragment"
         name="Fragment class name" />
+
+    <parameter
+        id="contractClassName"
+        type="string"
+        constraints="nonempty|class|unique"
+        default="TestContract"
+        suggest="${extractLetters(objectKind)}Contract"
+        name="Contract class name" />
 
     <parameter
         id="beanClassName"

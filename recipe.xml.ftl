@@ -17,6 +17,12 @@
     <instantiate from="root/src/app_package/TestBean.${ktOrJavaExt}.ftl"
                 to="${escapeXmlAttribute(srcOut)}/bean/${beanClassName}.${ktOrJavaExt}" />
 
+    <instantiate from="root/src/app_package/TemplateContract.${ktOrJavaExt}.ftl"
+                to="${escapeXmlAttribute(srcOut)}/${contractClassName}.${ktOrJavaExt}" />
+
+    <instantiate from="root/src/app_package/TemplatePresenter.${ktOrJavaExt}.ftl"
+                to="${escapeXmlAttribute(srcOut)}/${objectKind}Presenter.${ktOrJavaExt}" />
+
     <open file="${escapeXmlAttribute(srcOut)}/${className}.${ktOrJavaExt}" />
 
     <#--  <merge from="root/res/values/dimens.xml"

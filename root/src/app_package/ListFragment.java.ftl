@@ -10,16 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ${packageName}.R
+<#if applicationPackage??>
+import ${applicationPackage}.R;
+</#if>
 import ${packageName}.bean.${beanClassName};
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class ${className} extends Fragment {
+public class ${className} extends Fragment implements ${contractClassName}.View{
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ${adapterClassName} mAdapter;
+    private ${contractClassName}.Presenter mPresenter;
+
 
     public ${className}() {
     }
@@ -44,7 +48,7 @@ public class ${className} extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
                 //判断RecyclerView的状态 是空闲时，且是最后一个可见的item时才加载
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem+1 == mAdapter.getItemCount()) {
-                    loadMore();
+                    mPresenter.loadMore${objectKind}();
                 }
             }
 
@@ -62,35 +66,25 @@ public class ${className} extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh();
+                mPresenter.refresh();
             }
         });
-        loadData();
+        mPresenter.load${objectKind}(); 
         return view;
     }
 
-    private void loadData() {
-        ArrayList<${beanClassName}> beanArrayList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            beanArrayList.add(new ${beanClassName}("index: " + i));
+    @Override
+    public void show${objectKind}List(List<${beanClassName}> dataList, boolean isAppend) {
+        if (isAppend) {
+            mAdapter.addFootItems(dataList);
+        } else {
+            mAdapter.setData(dataList);
         }
-        mAdapter.setData(beanArrayList);
-    }
-
-    private void loadMore() {
-        ArrayList<${beanClassName}> beanArrayList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            beanArrayList.add(new ${beanClassName}("more " + mAdapter.getItemCount()+i));
-        }
-        mAdapter.addFootItems(beanArrayList);j
-    }
-
-    private void refresh() {
-        ArrayList<${beanClassName}> beanArrayList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            beanArrayList.add(new ${beanClassName}("refresh: " + i));
-        }
-        mAdapter.setData(beanArrayList);
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void setPresenter(${contractClassName}.Presenter presenter) {
+        mPresenter = presenter;
     }
 }

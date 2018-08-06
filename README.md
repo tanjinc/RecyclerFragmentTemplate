@@ -18,6 +18,7 @@ A template for Android Studio to create a Fragment with RecyclerView and Adapter
 
 1. 下来刷新
 2. 上拉加载更多
+3. 使用MVP模式
 
 ```
 

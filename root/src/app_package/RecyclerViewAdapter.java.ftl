@@ -7,16 +7,20 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 import android.widget.TextView;
+
+<#if applicationPackage??>
+import ${applicationPackage}.R;
+</#if>
 import ${packageName}.bean.${beanClassName};
 
 public class ${adapterClassName} extends RecyclerView.Adapter<${adapterClassName}.ViewHolder> {
 
-    private ArrayList<${beanClassName}> mDataArray = new ArrayList<>();
+    private List<${beanClassName}> mDataArray = new ArrayList<>();
 
     public ${adapterClassName}() {
     }
 
-    public void setData(ArrayList<${beanClassName}> items) {
+    public void setData(List<${beanClassName}> items) {
         mDataArray = items;
         notifyDataSetChanged();
     }

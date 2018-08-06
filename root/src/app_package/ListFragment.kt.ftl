@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ${packageName}.bean.${beanClassName}
-import ${packageName}.R
+<#if applicationPackage??>
+import ${applicationPackage}.R
+</#if>
 import java.util.*
 
 class ${className} : Fragment() {
