@@ -7,26 +7,29 @@ import android.view.View
 import android.view.ViewGroup
 
 import java.util.ArrayList
+import java.util.List;
+
 
 import android.widget.TextView
+import ${packageName}.R
 
 import ${packageName}.bean.${beanClassName}
 
 class ${adapterClassName} : RecyclerView.Adapter<${adapterClassName}.ViewHolder>() {
 
-    private var mDataArray = ArrayList<${beanClassName}>()
+    private var mDataArray: MutableList<${beanClassName}> = mutableListOf()
 
-    fun setData(items: ArrayList<${beanClassName}>) {
+    fun setData(items: MutableList<${beanClassName}>) {
         mDataArray = items
         notifyDataSetChanged()
     }
 
-    fun addFootItems(items: List<${beanClassName}>) {
+    fun addFootItems(items: MutableList<${beanClassName}>) {
         mDataArray.addAll(items)
         notifyDataSetChanged()
     }
 
-    fun addHeaderItems(items: List<${beanClassName}>) {
+    fun addHeaderItems(items: MutableList<${beanClassName}>) {
         mDataArray.addAll(0, items)
         notifyDataSetChanged()
     }

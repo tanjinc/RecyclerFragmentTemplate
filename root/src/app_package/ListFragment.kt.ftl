@@ -13,11 +13,13 @@ import ${applicationPackage}.R
 </#if>
 import java.util.*
 
-class ${className} : Fragment() {
+class ${className} : Fragment(), ${contractClassName}.View {
 
-    private var mRecyclerView: RecyclerView? = null
-    private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
-    private var mAdapter: ${adapterClassName}? = null
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var mAdapter: ${adapterClassName}
+    private var mPresenter: ${contractClassName}.Presenter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +30,16 @@ class ${className} : Fragment() {
         val view = inflater.inflate(R.layout.${fragment_layout_list}, container, false)
         mAdapter = ${adapterClassName}()
         mRecyclerView = view.findViewById(R.id.recycler_view) as RecyclerView
-        mRecyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mRecyclerView?.adapter = mAdapter
-        mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        mRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mRecyclerView.adapter = mAdapter
+        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             internal var lastVisibleItem: Int = 0
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 //判断RecyclerView的状态 是空闲时，且是最后一个可见的item时才加载
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mAdapter?.itemCount) {
-                    loadMore()
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mAdapter.itemCount) {
+                    mPresenter!!.loadMore${objectKind}()
                 }
             }
 
@@ -51,33 +53,20 @@ class ${className} : Fragment() {
             }
         })
         mSwipeRefreshLayout = view.findViewById(R.id.refreshLayout) as SwipeRefreshLayout
-        mSwipeRefreshLayout?.setOnRefreshListener { refresh() }
-        loadData()
+        mSwipeRefreshLayout.setOnRefreshListener { mPresenter!!.refresh() }
+        mPresenter!!.load${objectKind}()
         return view
     }
-
-    private fun loadData() {
-        val beanArrayList = ArrayList<${beanClassName}>()
-        for (i in 0..9) {
-            beanArrayList.add(${beanClassName}("index: $i"))
+    override fun show${objectKind}List(dataList: MutableList<${beanClassName}>, isAppend: Boolean) {
+        if (isAppend) {
+            mAdapter.addFootItems(dataList)
+        } else {
+            mAdapter.setData(dataList)
         }
-        mAdapter?.setData(beanArrayList)
+        mSwipeRefreshLayout.isRefreshing = false
     }
 
-    private fun loadMore() {
-        val beanArrayList = ArrayList<${beanClassName}>()
-        for (i in 0..9) {
-            beanArrayList.add(${beanClassName}("more " + (i + mAdapter!!.itemCount)))
-        }
-        mAdapter?.addFootItems(beanArrayList)
-    }
-
-    private fun refresh() {
-        val beanArrayList = ArrayList<${beanClassName}>()
-        for (i in 0..9) {
-            beanArrayList.add(${beanClassName}("refresh: $i"))
-        }
-        mAdapter?.setData(beanArrayList)
-        mSwipeRefreshLayout?.isRefreshing = false
+    override fun setPresenter(presenter: ${contractClassName}.Presenter) {
+        mPresenter = presenter
     }
 }

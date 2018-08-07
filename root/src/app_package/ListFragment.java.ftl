@@ -10,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-<#if applicationPackage??>
-import ${applicationPackage}.R;
-</#if>
+import ${packageName}.R;
 import ${packageName}.bean.${beanClassName};
 
 import java.util.List;
@@ -69,7 +67,7 @@ public class ${className} extends Fragment implements ${contractClassName}.View{
                 mPresenter.refresh();
             }
         });
-        mPresenter.load${objectKind}(); 
+        mPresenter.load${objectKind}();
         return view;
     }
 
@@ -80,7 +78,7 @@ public class ${className} extends Fragment implements ${contractClassName}.View{
         } else {
             mAdapter.setData(dataList);
         }
-        mSwipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.setRefreshing(false); 
     }
 
     @Override

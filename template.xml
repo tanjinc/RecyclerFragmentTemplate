@@ -66,16 +66,24 @@
         id="fragment_layout"
         type="string"
         constraints="layout|nonempty|unique"
-        default="fragment_${extractLetters(objectKind)}_item"
-        suggest="fragment_${extractLetters(objectKind?lower_case)}"
+        default="${extractLetters(objectKind)}_list_item"
+        suggest="${extractLetters(objectKind?lower_case)}_list_item"
         name="Object content layout file name" />
+
+    <parameter
+        id="loading_more_layout"
+        type="string"
+        constraints="layout|nonempty|unique"
+        default="${extractLetters(objectKind)}_list_item_loading"
+        suggest="${extractLetters(objectKind?lower_case)}_list_item_loading"
+        name="加载更多 xml布局文件名" />
 
     <parameter
         id="fragment_layout_list"
         type="string"
         constraints="layout|nonempty|unique"
-        default="fragment_${extractLetters(objectKind)}_list_layout"
-        suggest="fragment_${extractLetters(objectKind?lower_case)}_list_layout"
+        default="${extractLetters(objectKind)}_list_layout"
+        suggest="${extractLetters(objectKind?lower_case)}_list_layout"
         name="List layout file name" />
 
     <parameter

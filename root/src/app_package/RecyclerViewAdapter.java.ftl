@@ -13,8 +13,9 @@ import ${applicationPackage}.R;
 </#if>
 import ${packageName}.bean.${beanClassName};
 
-public class ${adapterClassName} extends RecyclerView.Adapter<${adapterClassName}.ViewHolder> {
+public class ${adapterClassName} extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private final static int ITEM_TYPE_LOADING = 1000;
     private List<${beanClassName}> mDataArray = new ArrayList<>();
 
     public ${adapterClassName}() {
@@ -37,19 +38,39 @@ public class ${adapterClassName} extends RecyclerView.Adapter<${adapterClassName
 
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.${fragment_layout}, parent, false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == ITEM_TYPE_LOADING) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.${loading_more_layout}, parent, false);
+            return new LoadMoreViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.${fragment_layout}, parent, false);
+            return new ViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItemName.setText(mDataArray.get(position).getTitle());
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, int position) {
+        if (getItemViewType(position) == ITEM_TYPE_LOADING) {
+            LoadMoreViewHolder loadMoreViewHolder = (LoadMoreViewHolder) viewHolder;
+            loadMoreViewHolder.loadMoreView.setVisibility(View.VISIBLE);
+        } else {
+            ViewHolder vh = (ViewHolder) viewHolder;
+            vh.mItemName.setText(mDataArray.get(position).getTitle());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mDataArray.size();
+        return mDataArray.size() + 1; //add Loading View
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == getItemCount()-1) {
+            return ITEM_TYPE_LOADING;
+        }
+        return super.getItemViewType(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,6 +81,15 @@ public class ${adapterClassName} extends RecyclerView.Adapter<${adapterClassName
             super(view);
             mView = view;
             mItemName = (TextView)view.findViewById(R.id.item_number);
+        }
+    }
+
+    public class LoadMoreViewHolder extends RecyclerView.ViewHolder {
+        View loadMoreView;
+
+        public LoadMoreViewHolder(View itemView) {
+            super(itemView);
+            loadMoreView = itemView;
         }
     }
 }

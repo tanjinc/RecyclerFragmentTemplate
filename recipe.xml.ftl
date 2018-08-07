@@ -9,6 +9,8 @@
                  to="${escapeXmlAttribute(resOut)}/layout/${fragment_layout_list}.xml" />
     <instantiate from="root/res/layout/item_list_content.xml"
                  to="${escapeXmlAttribute(resOut)}/layout/${fragment_layout}.xml" />
+    <instantiate from="root/res/layout/item_loading.xml"
+                 to="${escapeXmlAttribute(resOut)}/layout/${loading_more_layout}.xml" />
 
     <instantiate from="root/src/app_package/ListFragment.${ktOrJavaExt}.ftl"
                  to="${escapeXmlAttribute(srcOut)}/${className}.${ktOrJavaExt}" />
